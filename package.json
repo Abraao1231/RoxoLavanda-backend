@@ -4,7 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "tsx watch --env-file .env src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@fastify/cors": "^8.5.0",
+    "@fastify/jwt": "^8.0.0",
+    "@prisma/client": "^4.8.1",
+    "dayjs": "^1.11.7",
+    "fastify": "^4.11.0",
+    "tsup": "^8.0.2",
+    "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^9.3.0",
+    "nodemon": "^3.1.0",
+    "prisma": "^4.8.1",
+    "prisma-erd-generator": "^1.2.5",
+    "tsx": "^3.12.2",
+    "typescript": "^4.9.4"
   },
   "author": "",
   "license": "ISC"
