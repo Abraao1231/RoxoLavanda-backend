@@ -12,9 +12,8 @@ export async function userRoutes(app: FastifyInstance){
             await user.createUser(request)
             reply.send({message: 'usuario cadastrado com sucesso'})
         } catch (error) {
-            console.log(error);
-            
-            reply.send({message: error})
+            reply.status(500)
+            reply.send(error.message)
         }
     })
 
@@ -22,7 +21,7 @@ export async function userRoutes(app: FastifyInstance){
         try {
             const userModel = new User()
             const user = await userModel.findUserByEmail(request)
-            response.send()
+            response.send(user)
         } catch (error) {
             console.log(error);
             response.send({message: error})

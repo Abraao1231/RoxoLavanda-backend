@@ -1,6 +1,7 @@
 import {prisma} from '../lib/prisma'
 import dayjs from 'dayjs'
 import {z} from 'zod'
+import bcrypt from 'bcrypt';
 
 export class User {
     constructor() {}
@@ -14,15 +15,31 @@ export class User {
         }) 
 
         const {userName, email, password} = zodBodyUser.parse(request.body)
-
-        await prisma.user.create({
-            data: {
-                userName: userName,
-                email: email,
-                password: email,
-                created_at: today
-            }   
+        
+        const userSearch = await prisma.user.findUnique({
+            where: {
+                email: email
+            }
         })
+        if (userSearch)
+            throw ({
+                "statusCode": 500,
+                "error": "Internal Server Error",
+                "message": "E-mail ja cadastrado"
+            });
+        else {
+            const hashPass = await bcrypt.hash(password, 10);
+            await prisma.user.create({
+                data: {
+                    userName: userName,
+                    email: email,
+                    password:  hashPass,
+                    created_at: today
+                }   
+            })
+        }
+            
+            
     }
     async findUserByEmail(request){
         const getDayParams = z.object({
