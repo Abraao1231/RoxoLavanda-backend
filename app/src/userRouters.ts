@@ -1,19 +1,21 @@
 import { FastifyInstance } from "fastify";
 import { User } from "./model/User";
+import {prisma} from './lib/prisma'
 
 
 export async function userRoutes(app: FastifyInstance){
     app.get('/', (request, response) => {
         response.send({message: 'ola'})
     })
-    app.post('/user', async (request, reply)=> {
+
+    app.post('/user', async (request, response)=> {
         try {
             const user = new User()
             await user.createUser(request)
-            reply.send({message: 'usuario cadastrado com sucesso'})
+            response.send({message: 'usuario cadastrado com sucesso'})
         } catch (error) {
-            reply.status(500)
-            reply.send(error.message)
+            response.status(500)
+            response.send(error.message)
         }
     })
 

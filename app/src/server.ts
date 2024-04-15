@@ -10,6 +10,7 @@ app.register(cors, {})
 app.register(fastifyJwt, {
     secret: String(process.env.JWT_SECRET)
 })
+
 app.register(userRoutes)
 
 app.listen({
