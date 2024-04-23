@@ -1,7 +1,7 @@
 import fastifyJwt from "@fastify/jwt";
 import Fastfy from 'fastify'
 import cors from '@fastify/cors'
-import { userRoutes } from "./userRouters";
+import { userRoutes } from "./routes/userRouters";
 
 
 const app = Fastfy();
