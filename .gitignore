@@ -4,3 +4,4 @@ app/.env
 app/prisma/dev.db
 app/package-lock.json
 app/prisma/migrations
+node_modules
