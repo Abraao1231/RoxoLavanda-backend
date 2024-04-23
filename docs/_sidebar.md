@@ -1,4 +1,6 @@
 <!-- docs/_sidebar.md -->
 
 - [**Home**](/) 
-  - Integrantes 
+
+
+- [Código de contribuição](./codigo-contribuicao.md)

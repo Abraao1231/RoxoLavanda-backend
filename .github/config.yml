@@ -1,0 +1,6 @@
+name: Gym Tracker Backend   
+issue_templates:
+  - name: Simple Issue
+    filename: template-issue.md
+    title: Issue template
+ 
