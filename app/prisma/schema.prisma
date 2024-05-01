@@ -10,7 +10,7 @@ datasource db {
 model User {
   id         String   @id @default(uuid())
   userName   String
-  email      String
+  email      String   
   password   String
   created_at DateTime
 
@@ -19,3 +19,38 @@ model User {
   @@map("user")
 }
 
+model Treino {
+  id         String   @id @default(uuid())
+  intervalo  DateTime      
+
+  @@map("treino")
+}
+
+model RegistroTreinoRealiza {
+  id         String   @id @default(uuid())
+  calorias   Float
+  tempo      DateTime
+  data       DateTime
+  userId     String      //add relação
+  treinoId   String      //add relação
+
+  @@map("registra_treino_realiza")
+}
+
+model Exercicio {
+  id         String   @id @default(uuid())
+  nome       String   @unique
+  numeroRep  Int
+  intervalo  DateTime
+  numeroSer  Int
+
+  @@map("exercicio")
+}
+
+model Possui {
+  treinoId    String   //add relação
+  exercicioId String   //add relação
+
+  @@id([treinoId, exercicioId])
+  @@map("possui")
+}
