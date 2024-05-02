@@ -1,4 +1,7 @@
 <!-- docs/_sidebar.md -->
 
 - [**Home**](/) 
-  - Integrantes 
+
+
+- [Código de contribuição](./codigo-contribuicao.md)
+- [Peoduct backlog](./pages/product_backlog.md)

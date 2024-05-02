@@ -1,3 +1,5 @@
+# Issue template
+
 ### Descrição:
 Uma descrição detalhada sobre o que será feito.
 ### Tarefas:
