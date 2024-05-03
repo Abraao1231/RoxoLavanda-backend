@@ -8,11 +8,12 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  userName   String
-  email      String   
-  password   String
-  created_at DateTime
+  id                    String                  @id @default(uuid())
+  userName              String
+  email                 String
+  password              String
+  created_at            DateTime
+  RegistroTreinoRealiza RegistroTreinoRealiza[]
 
   @@unique([id])
   @@unique([email])
@@ -20,36 +21,43 @@ model User {
 }
 
 model Treino {
-  id         String   @id @default(uuid())
-  intervalo  DateTime      
+  id                    String                  @id @default(uuid())
+  intervalo             DateTime
+  RegistroTreinoRealiza RegistroTreinoRealiza[]
+  Possui                Possui[]
 
   @@map("treino")
 }
 
 model RegistroTreinoRealiza {
-  id         String   @id @default(uuid())
-  calorias   Float
-  tempo      DateTime
-  data       DateTime
-  userId     String      //add relação
-  treinoId   String      //add relação
+  id       String   @id @default(uuid())
+  calorias Float
+  tempo    DateTime
+  data     DateTime
+  userId   String //add relação
+  user     User     @relation(fields: [userId], references: [id])
+  treinoId String //add relação
+  treino   Treino   @relation(fields: [treinoId], references: [id])
 
   @@map("registra_treino_realiza")
 }
 
 model Exercicio {
-  id         String   @id @default(uuid())
-  nome       String   @unique
-  numeroRep  Int
-  intervalo  DateTime
-  numeroSer  Int
+  id        String   @id @default(uuid())
+  nome      String   @unique
+  numeroRep Int
+  intervalo DateTime
+  numeroSer Int
+  Possui    Possui[]
 
   @@map("exercicio")
 }
 
 model Possui {
-  treinoId    String   //add relação
-  exercicioId String   //add relação
+  treinoId    String //add relação
+  treino      Treino    @relation(fields: [treinoId], references: [id])
+  exercicioId String //add relação
+  exercicio   Exercicio @relation(fields: [exercicioId], references: [id])
 
   @@id([treinoId, exercicioId])
   @@map("possui")
