@@ -62,3 +62,4 @@ model Possui {
   @@id([treinoId, exercicioId])
   @@map("possui")
 }
+a
