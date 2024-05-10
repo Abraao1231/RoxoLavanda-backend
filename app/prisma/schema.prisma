@@ -13,6 +13,9 @@ model User {
   email                 String
   password              String
   created_at            DateTime
+  genero                String
+  altura                Float
+  peso                  Float
   RegistroTreinoRealiza RegistroTreinoRealiza[]
 
   @@unique([id])
@@ -22,9 +25,9 @@ model User {
 
 model Treino {
   id                    String                  @id @default(uuid())
-  intervalo             DateTime
+  intervalo             Int
   RegistroTreinoRealiza RegistroTreinoRealiza[]
-  Possui                Possui[]
+  TreinoPossuiExercicio TreinoPossuiExercicio[]
 
   @@map("treino")
 }
@@ -32,11 +35,11 @@ model Treino {
 model RegistroTreinoRealiza {
   id       String   @id @default(uuid())
   calorias Float
-  tempo    DateTime
+  tempo    Int
   data     DateTime
-  userId   String //add relação
+  userId   String 
   user     User     @relation(fields: [userId], references: [id])
-  treinoId String //add relação
+  treinoId String 
   treino   Treino   @relation(fields: [treinoId], references: [id])
 
   @@map("registra_treino_realiza")
@@ -46,20 +49,19 @@ model Exercicio {
   id        String   @id @default(uuid())
   nome      String   @unique
   numeroRep Int
-  intervalo DateTime
+  intervalo Int
   numeroSer Int
-  Possui    Possui[]
+  TreinoPossuiExercicio    TreinoPossuiExercicio[]
 
   @@map("exercicio")
 }
 
-model Possui {
-  treinoId    String //add relação
+model TreinoPossuiExercicio {
+  treinoId    String 
   treino      Treino    @relation(fields: [treinoId], references: [id])
-  exercicioId String //add relação
+  exercicioId String
   exercicio   Exercicio @relation(fields: [exercicioId], references: [id])
 
   @@id([treinoId, exercicioId])
-  @@map("possui")
+  @@map("treino_possui_exercicio")
 }
-a
