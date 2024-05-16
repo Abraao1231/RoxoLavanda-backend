@@ -8,14 +8,60 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  userName   String
-  email      String
-  password   String
-  created_at DateTime
+  id                    String                  @id @default(uuid())
+  userName              String
+  email                 String
+  password              String
+  created_at            DateTime
+  genero                String
+  altura                Float
+  peso                  Float
+  RegistroTreinoRealiza RegistroTreinoRealiza[]
 
   @@unique([id])
   @@unique([email])
   @@map("user")
 }
 
+model Treino {
+  id                    String                  @id @default(uuid())
+  intervalo             Int
+  RegistroTreinoRealiza RegistroTreinoRealiza[]
+  TreinoPossuiExercicio TreinoPossuiExercicio[]
+
+  @@map("treino")
+}
+
+model RegistroTreinoRealiza {
+  id       String   @id @default(uuid())
+  calorias Float
+  tempo    Int
+  data     DateTime
+  userId   String 
+  user     User     @relation(fields: [userId], references: [id])
+  treinoId String 
+  treino   Treino   @relation(fields: [treinoId], references: [id])
+
+  @@map("registra_treino_realiza")
+}
+
+model Exercicio {
+  id        String   @id @default(uuid())
+  nome      String   @unique
+  numeroRep Int
+  intervalo Int
+  numeroSer Int
+  TreinoPossuiExercicio    TreinoPossuiExercicio[]
+
+  @@map("exercicio")
+}
+
+model TreinoPossuiExercicio {
+  treinoId    String 
+  treino      Treino    @relation(fields: [treinoId], references: [id])
+  exercicioId String
+  exercicio   Exercicio @relation(fields: [exercicioId], references: [id])
+
+  @@id([treinoId, exercicioId])
+  @@map("treino_possui_exercicio")
+}
