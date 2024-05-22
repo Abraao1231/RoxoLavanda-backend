@@ -43,7 +43,10 @@ export class User {
                     userName: userName,
                     email: email,
                     password:  hashPass,
-                    created_at: today
+                    created_at: today,
+                    genero: genero,
+                    altura: altura,
+                    peso: peso
                 }   
             })
         }
