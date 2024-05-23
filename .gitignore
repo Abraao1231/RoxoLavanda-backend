@@ -1,6 +1,5 @@
 app/node_modules
 # Keep environment variables out of version control
-app/.env
 app/prisma/dev.db
 app/package-lock.json
 app/prisma/migrations
