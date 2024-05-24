@@ -1,8 +1,8 @@
 import {getUser, AddUser, Hello} from '../controller/userController'
 
-export const prefix = '/user'
+export const prefixUser = '/user'
 
-export const routes = [
+export const routesUser = [
     {
         method: 'GET',
         url: '/hello',
