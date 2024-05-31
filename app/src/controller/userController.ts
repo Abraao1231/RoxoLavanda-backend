@@ -19,9 +19,27 @@ export let getUser = async(request, response)=> {
     try {
         const userModel = new User()
         const user = await userModel.findUserByEmail(request)
-        response.send(user)
+        if (user)
+            response.send(user)
+        else{
+            response.send({isExists: false,message: "Usuario não encontrado"})
+        }
+
     } catch (error) {
         console.log(error);
         response.send({message: error})
+    }
+}
+
+export let deleteUser = async(request, response)=> {
+    try {
+        const userModel = new User()
+        await userModel.deleteUser(request)
+        response.send({
+            message: "Conta excluida !"
+        })
+    } catch (error) {
+        console.log(error);
+        response.send({message: error})        
     }
 }

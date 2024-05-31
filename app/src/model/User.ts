@@ -65,8 +65,47 @@ export class User {
             }
         })
         
-        if (!user)
-            throw new Error("Usuario não encontrado");
+        
+        if (user == null)
+            return false
         return user
     }
+    async findUserById(id: string){
+        
+        
+        const user = await prisma.user.findUnique({
+            where: {
+                id: id
+            }
+        })
+        
+        if (!user)
+            throw new Error("Usuario não encontrado");
+
+       
+
+        return user
+    }
+    
+    async deleteUser(request){
+        const getDayParams = z.object({id: z.string()})
+        const { id } = getDayParams.parse(request.query)
+        
+        const user = await prisma.user.findUnique({
+            where: {
+                id: id
+            }
+        })
+        
+        if (!user)
+            throw new Error("Usuario não encontrado");
+
+        await prisma.user.delete({
+            where: {
+                id: id
+            }
+        })
+        return user
+    }
+    
 }
