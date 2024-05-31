@@ -1,4 +1,5 @@
-import {getUser, AddUser, Hello, deleteUser} from '../controller/userController'
+import {getUser, AddUser, Hello, deleteUser, updateUser} from '../controller/userController'
+import { updateUserSchema } from '../schemas/userSchemas'
 
 export const prefixUser = '/user'
 
@@ -23,5 +24,11 @@ export const routesUser = [
         method: 'DELETE',
         url: '/',
         handler: deleteUser
+    },
+    {
+        method: 'PATCH',
+        url: '/',
+        handler: updateUser,
+        schema: updateUserSchema
     },
 ]

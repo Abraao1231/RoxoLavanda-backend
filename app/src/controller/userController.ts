@@ -7,8 +7,11 @@ export let Hello = async (request, response) => {
 export let AddUser = async (request, response)=> {
     try {
         const user = new User()
-        await user.createUser(request)
-        response.send({message: 'usuario cadastrado com sucesso'})
+        const userCreated = await user.createUser(request)
+        response.send({
+            message: 'usuario cadastrado com sucesso',
+            data: userCreated
+        })
     } catch (error) {
         response.status(500)
         response.send(error.message)
@@ -27,6 +30,7 @@ export let getUser = async(request, response)=> {
 
     } catch (error) {
         console.log(error);
+        response.status(500)
         response.send({message: error})
     }
 }
@@ -39,7 +43,26 @@ export let deleteUser = async(request, response)=> {
             message: "Conta excluida !"
         })
     } catch (error) {
+        response.status(500)
         console.log(error);
         response.send({message: error})        
     }
+}
+
+export let updateUser = async(request, response)=>{
+    try {
+        const userModel = new User()
+        const user = await userModel.updateUser(request)
+        response.send({
+            message: "Conta alterada com sucesso !",
+            data: user
+        })
+    } catch (error) {
+        if (error.name == "PrismaClientValidationError")
+            response.status(500)
+            response.send({message: "Campos invalidos"})        
+
+        console.log(error);
+        response.send({message: error})        
+    } 
 }
