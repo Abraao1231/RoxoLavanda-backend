@@ -9,10 +9,16 @@ const app = Fastfy();
 
 app.register(cors, {})
 app.register(fastifyJwt, {
-    secret: String(process.env.JWT_SECRET)
+    secret: String(process.env.SECRET_JWT)
 })
 
-
+app.decorate("authenticate", async function(request, reply) {
+    try {
+      await request.jwtVerify()
+    } catch (err) {
+      reply.send(err)
+    }
+  })
 
 app.register(appRoutes)
 
