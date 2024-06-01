@@ -1,6 +1,6 @@
 import {getUser, AddUser, Hello, deleteUser, updateUser} from '../controller/userController'
 import { updateUserSchema } from '../schemas/userSchemas'
-
+import { verifyJwt } from '../middleware/authJwt'
 export const prefixUser = '/user'
 
 export const routesUser = [
@@ -18,17 +18,20 @@ export const routesUser = [
     {
         method: 'GET',
         url: '/',
-        handler: getUser
+        handler: getUser,
+        onRequest: [verifyJwt]
     },
     {
         method: 'DELETE',
         url: '/',
-        handler: deleteUser
+        handler: deleteUser,
+        onRequest: [verifyJwt]
     },
     {
         method: 'PATCH',
         url: '/',
         handler: updateUser,
-        schema: updateUserSchema
+        schema: updateUserSchema,
+        onRequest: [verifyJwt]
     },
 ]

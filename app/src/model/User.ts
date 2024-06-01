@@ -78,7 +78,11 @@ export class User {
             }
         })
         if (!user)
-            throw new Error("Usuario não encontrado");
+            throw ({
+                "statusCode": 500,
+                "error": "Internal Server Error",
+                "message": "Usuario não encontrado"
+            });
         return user
     }
     
@@ -93,13 +97,18 @@ export class User {
         })
         
         if (!user)
-            throw new Error("Usuario não encontrado");
+            throw ({
+                "statusCode": 500,
+                "error": "Internal Server Error",
+                "message": "Usuario não encontrado"
+            });
 
         await prisma.user.delete({
             where: {
                 id: id
             }
         })
+
         return true;
     }
     async updateUser(request){
@@ -111,8 +120,13 @@ export class User {
                 id: id
             }
         }) 
+        
         if (!user)
-            throw new Error("Usuario não encontrado");
+            throw ({
+                "statusCode": 500,
+                "error": "Internal Server Error",
+                "message": "Usuario não encontrado"
+            });
 
 
         const userUpdated = await prisma.user.update({
