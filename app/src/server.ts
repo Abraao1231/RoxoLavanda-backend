@@ -1,26 +1,27 @@
 import fastifyJwt from "@fastify/jwt";
 import Fastfy from 'fastify'
 import cors from '@fastify/cors'
-import { prefix, routes } from "./routes/userRouters";
-import { routes as treinoRoutes, prefix as treinoPrefix } from "./routes/treinoRoutes";
+import { appRoutes } from "./routes";
+import fastify from "fastify";
+
 
 const app = Fastfy();
 
 app.register(cors, {})
 app.register(fastifyJwt, {
-    secret: String(process.env.JWT_SECRET)
+    secret: String(process.env.SECRET_JWT)
 })
 
-routes.forEach((route, index)=>{    
-    route.url = prefix + route.url;
-    app.route(route)
-})
 
-treinoRoutes.forEach((route, index)=>{    
-    route.url = treinoPrefix + route.url;
-    app.route(route)
-})
+app.decorate("authenticate", async function(request, reply) {
+    try {
+      await request.jwtVerify()
+    } catch (err) {
+      reply.send(err)
+    }
+  })
 
+app.register(appRoutes)
 app.listen({
     host: "0.0.0.0",
     port: 3333

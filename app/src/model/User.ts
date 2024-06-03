@@ -38,7 +38,7 @@ export class User {
         else {
 
             const hashPass = await bcrypt.hash(password, 10);
-            await prisma.user.create({
+            const user = await prisma.user.create({
                 data: {
                     userName: userName,
                     email: email,
@@ -49,15 +49,16 @@ export class User {
                     peso: peso
                 }   
             })
+            return user     
+
         }
-            
             
     }
     async findUserByEmail(request){
-        const getDayParams = z.object({
+        const getUserParams = z.object({
             email: z.string().email({message: "E-mail inválido"})
         })
-        const { email } = getDayParams.parse(request.query)
+        const { email } = getUserParams.parse(request.query)
         
         const user = await prisma.user.findUnique({
             where: {
@@ -65,8 +66,75 @@ export class User {
             }
         })
         
-        if (!user)
-            throw new Error("Usuario não encontrado");
+        
+        if (user == null)
+            return false
         return user
+    }
+    async findUserById(id: string){ 
+        const user = await prisma.user.findUnique({
+            where: {
+                id: id
+            }
+        })
+        if (!user)
+            throw ({
+                "statusCode": 500,
+                "error": "Internal Server Error",
+                "message": "Usuario não encontrado"
+            });
+        return user
+    }
+    
+    async deleteUser(request){
+        const getUserId = z.object({id: z.string()})
+        const { id } = getUserId.parse(request.query)
+        
+        const user = await prisma.user.findUnique({
+            where: {
+                id: id
+            }
+        })
+        
+        if (!user)
+            throw ({
+                "statusCode": 500,
+                "error": "Internal Server Error",
+                "message": "Usuario não encontrado"
+            });
+
+        await prisma.user.delete({
+            where: {
+                id: id
+            }
+        })
+
+        return true;
+    }
+    async updateUser(request){
+        const getUserId = z.object({id: z.string()})
+        const { id } = getUserId.parse(request.query)
+        const userParams = request.body;
+        const user = await prisma.user.findUnique({
+            where: {
+                id: id
+            }
+        }) 
+        
+        if (!user)
+            throw ({
+                "statusCode": 500,
+                "error": "Internal Server Error",
+                "message": "Usuario não encontrado"
+            });
+
+
+        const userUpdated = await prisma.user.update({
+            where: {
+                id:id
+            },
+            data:userParams
+        })
+        return userUpdated
     }
 }
