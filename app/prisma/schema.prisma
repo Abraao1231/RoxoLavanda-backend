@@ -58,6 +58,7 @@ model Exercicio {
 }
 
 model TreinoPossuiExercicio {
+  id       String   @id @default(uuid())
   numeroRep             Int
   intervalo             Int
   numeroSer             Int
@@ -66,6 +67,5 @@ model TreinoPossuiExercicio {
   exercicioId String
   exercicio   Exercicio @relation(fields: [exercicioId], references: [id])
 
-  @@id([treinoId, exercicioId])
   @@map("treino_possui_exercicio")
 }

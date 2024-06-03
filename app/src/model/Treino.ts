@@ -41,4 +41,34 @@ export class Treino {
             })
         })
     }
+    async addExercicioInTreino(request){
+        
+        const zodBodyTreinoPossuiExercicio = z.object({
+            treinoId: z.string(),
+            exercicioId: z.string(),
+            numeroRep: z.number().min(1),
+            intervalo: z.number().min(10),
+            numeroSer: z.number().min(1),
+        }) 
+        
+        const {treinoId, exercicioId, numeroRep, intervalo, numeroSer} = zodBodyTreinoPossuiExercicio.parse(request.body)
+        
+        await prisma.treinoPossuiExercicio.create({
+            data: {
+                intervalo: intervalo,
+                numeroRep: numeroRep,
+                numeroSer: numeroSer,
+                exercicio: {
+                    connect: {
+                        id: exercicioId
+                    }
+                },
+                treino: {
+                    connect: {
+                        id: treinoId
+                    }
+                }
+            }
+        })
+    }
 }
