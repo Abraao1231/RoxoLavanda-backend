@@ -12,6 +12,7 @@ app.register(fastifyJwt, {
     secret: String(process.env.SECRET_JWT)
 })
 
+
 app.decorate("authenticate", async function(request, reply) {
     try {
       await request.jwtVerify()
@@ -21,7 +22,6 @@ app.decorate("authenticate", async function(request, reply) {
   })
 
 app.register(appRoutes)
-
 app.listen({
     host: "0.0.0.0",
     port: 3333

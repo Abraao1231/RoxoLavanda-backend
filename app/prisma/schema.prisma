@@ -27,6 +27,7 @@ model User {
 model Treino {
   id                    String                  @id @default(uuid())
   intervalo             Int
+  nome                  String
   RegistroTreinoRealiza RegistroTreinoRealiza[]
   TreinoPossuiExercicio TreinoPossuiExercicio[]
 
@@ -38,27 +39,27 @@ model RegistroTreinoRealiza {
   calorias Float
   tempo    Int
   data     DateTime
-  userId   String 
+  userId   String
   user     User     @relation(fields: [userId], references: [id])
-  treinoId String 
+  treinoId String
   treino   Treino   @relation(fields: [treinoId], references: [id])
 
   @@map("registra_treino_realiza")
 }
 
 model Exercicio {
-  id        String   @id @default(uuid())
-  nome      String   @unique
-  numeroRep Int
-  intervalo Int
-  numeroSer Int
-  TreinoPossuiExercicio    TreinoPossuiExercicio[]
+  id                    String                  @id @default(uuid())
+  nome                  String                  @unique
+  numeroRep             Int
+  intervalo             Int
+  numeroSer             Int
+  TreinoPossuiExercicio TreinoPossuiExercicio[]
 
   @@map("exercicio")
 }
 
 model TreinoPossuiExercicio {
-  treinoId    String 
+  treinoId    String
   treino      Treino    @relation(fields: [treinoId], references: [id])
   exercicioId String
   exercicio   Exercicio @relation(fields: [exercicioId], references: [id])
