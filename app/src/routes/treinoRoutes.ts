@@ -1,8 +1,8 @@
 import { AddTreino } from "../controller/treinoController"
 
-export const prefix = '/treino'
+export const TreinoPrefix = '/treino'
 
-export const routes = [
+export const TreinoRoutes = [
     {
         method: 'POST',
         url: '/',

@@ -1,10 +1,16 @@
 import { FastifyInstance } from "fastify";
 import { prefixUser, routesUser } from "./userRouters";
 import { AuthPrefix, AuthRoutes } from "./authRoutes";
+import { TreinoRoutes, TreinoPrefix } from "./treinoRoutes";
+import { exercicioRoutes, exercicioPrefix } from "./ExercicioRouters";
+
 export async function appRoutes(app: FastifyInstance){
 
     register(app, routesUser, prefixUser)
     register(app, AuthRoutes, AuthPrefix)
+    register(app, TreinoRoutes, TreinoPrefix)
+    register(app, exercicioRoutes, exercicioPrefix)
+
 }
 function register(app: FastifyInstance, routes, prefix: string){
     

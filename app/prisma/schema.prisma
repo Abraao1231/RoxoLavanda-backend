@@ -17,6 +17,7 @@ model User {
   altura                Float
   peso                  Float
   RegistroTreinoRealiza RegistroTreinoRealiza[]
+  Treinos Treino[]
 
   @@unique([id])
   @@unique([email])
@@ -28,9 +29,10 @@ model Treino {
   id                    String                  @id @default(uuid())
   intervalo             Int
   nome                  String
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
   RegistroTreinoRealiza RegistroTreinoRealiza[]
   TreinoPossuiExercicio TreinoPossuiExercicio[]
-
   @@map("treino")
 }
 
@@ -50,15 +52,15 @@ model RegistroTreinoRealiza {
 model Exercicio {
   id                    String                  @id @default(uuid())
   nome                  String                  @unique
-  numeroRep             Int
-  intervalo             Int
-  numeroSer             Int
   TreinoPossuiExercicio TreinoPossuiExercicio[]
 
   @@map("exercicio")
 }
 
 model TreinoPossuiExercicio {
+  numeroRep             Int
+  intervalo             Int
+  numeroSer             Int
   treinoId    String
   treino      Treino    @relation(fields: [treinoId], references: [id])
   exercicioId String
