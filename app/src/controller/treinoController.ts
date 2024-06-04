@@ -1,11 +1,13 @@
 import { Treino } from "../model/Treino"
 
-
+const model = new Treino()
 export let AddTreino = async (request, response)=> {
     try {
-        const treino = new Treino()
-        await treino.createTreino(request)
-        response.send({message: 'treino cadastrado com sucesso'})
+        const treino = await model.createTreino(request)
+        response.send({
+            message: 'treino cadastrado com sucesso',
+            data: treino
+        })
     } catch (error) {
         response.status(500)
         
@@ -13,15 +15,32 @@ export let AddTreino = async (request, response)=> {
     }
 }
 
-export let addExercicioInTreino = async (request, response)=> {
+export let deletetreino = async (request, response)=>{
     try {
-        const treino = new Treino()
-        await treino.addExercicioInTreino(request)
-        response.send({message: 'exercicio cadastrado com sucesso'})
+        await model.deletetreino(request)
+        response.send({
+            message: "treino excluido !"
+        })
     } catch (error) {
-        response.status(500)
         console.log(error);
-
-        response.send(error.message)
+        response.status(error.statusCode)
+        response.send({message: error})   
     }
 }
+
+export let updateTreino = async(request, response)=> {
+    try {
+        const exercicio = await model.updateTreino(request)
+        response.send({
+            message: "Treino alterado com sucesso !",
+            data: exercicio
+        })
+    } catch (error) {
+        if (error.name == "PrismaClientValidationError")
+            response.status(500)
+            response.send({message: "Campos invalidos"})        
+
+        console.log(error);
+        response.send({message: error})        
+    } 
+} 

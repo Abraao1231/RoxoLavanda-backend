@@ -5,9 +5,9 @@ import { TreinoRoutes, TreinoPrefix } from "./treinoRoutes";
 import { exercicioRoutes, exercicioPrefix } from "./ExercicioRouters";
 
 export async function appRoutes(app: FastifyInstance){
-
-    register(app, routesUser, prefixUser)
+  
     register(app, AuthRoutes, AuthPrefix)
+    register(app, routesUser, prefixUser)
     register(app, TreinoRoutes, TreinoPrefix)
     register(app, exercicioRoutes, exercicioPrefix)
 

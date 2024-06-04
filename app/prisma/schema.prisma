@@ -17,7 +17,7 @@ model User {
   altura                Float
   peso                  Float
   RegistroTreinoRealiza RegistroTreinoRealiza[]
-  Treinos Treino[]
+  Treinos Treino[] 
 
   @@unique([id])
   @@unique([email])
@@ -30,7 +30,7 @@ model Treino {
   intervalo             Int
   nome                  String
   userId   String
-  user     User     @relation(fields: [userId], references: [id])
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   RegistroTreinoRealiza RegistroTreinoRealiza[]
   TreinoPossuiExercicio TreinoPossuiExercicio[]
   @@map("treino")
@@ -42,16 +42,16 @@ model RegistroTreinoRealiza {
   tempo    Int
   data     DateTime
   userId   String
-  user     User     @relation(fields: [userId], references: [id])
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   treinoId String
-  treino   Treino   @relation(fields: [treinoId], references: [id])
+  treino   Treino   @relation(fields: [treinoId], references: [id], onDelete: Cascade)
 
   @@map("registra_treino_realiza")
 }
 
 model Exercicio {
   id                    String                  @id @default(uuid())
-  nome                  String                  @unique
+  nome                  String                 
   TreinoPossuiExercicio TreinoPossuiExercicio[]
 
   @@map("exercicio")
@@ -63,9 +63,9 @@ model TreinoPossuiExercicio {
   intervalo             Int
   numeroSer             Int
   treinoId    String
-  treino      Treino    @relation(fields: [treinoId], references: [id])
+  treino      Treino    @relation(fields: [treinoId], references: [id], onDelete: Cascade)
   exercicioId String
-  exercicio   Exercicio @relation(fields: [exercicioId], references: [id])
+  exercicio   Exercicio @relation(fields: [exercicioId], references: [id], onDelete: Cascade)
 
   @@map("treino_possui_exercicio")
 }

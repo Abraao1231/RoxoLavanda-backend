@@ -43,6 +43,8 @@ export let deleteUser = async(request, response)=> {
             message: "Conta excluida !"
         })
     } catch (error) {
+        console.log(error);
+        
         response.status(error.statusCode)
         response.send({message: error})   
     }
