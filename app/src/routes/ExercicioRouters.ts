@@ -1,4 +1,4 @@
-import { addExercicio, addExercicioInTreino, deleteExercicioTreino, updateExercicioTreino } from "../controller/ExercicioController"
+import { addExercicio, addExercicioInTreino, deleteExercicio, deleteExercicioTreino, updateExercicioTreino } from "../controller/ExercicioController"
 
 export const exercicioPrefix = '/exercicio'
 
@@ -22,5 +22,10 @@ export const exercicioRoutes = [
         method: 'PATCH',
         url: '/treino',
         handler: updateExercicioTreino,
+    },
+    {
+        method: 'DELETE',
+        url: '/',
+        handler: deleteExercicio,
     },
 ]

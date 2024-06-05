@@ -51,3 +51,15 @@ export let updateExercicioTreino = async(request, response)=>{
 }
 
 
+export let deleteExercicio = async (request, response)=>{
+    try {
+        await model.deleteExercicio(request)
+        response.send({
+            message: "Exercicio excluido !"
+        })
+    } catch (error) {
+        console.log(error);
+        response.status(error.statusCode)
+        response.send({message: error})   
+    }
+}

@@ -100,4 +100,30 @@ export class Exercicio {
         })
         return userUpdated
     }
+    async deleteExercicio(request){
+        const getExercicioId = z.object({id: z.string()})
+        console.log(request.query.id);
+    
+        const { id } = getExercicioId.parse(request.query)
+    
+        const treino = await prisma.exercicio.findUnique({
+            where: {
+                id: id
+            }
+        })
+        
+        if (!treino)
+            throw ({
+                "statusCode": 500,
+                "error": "Internal Server Error",
+                "message": "treino não encontrado"
+            });
+            
+            await prisma.exercicio.delete({
+                where: {
+                    id: id
+                }
+            })
+            return true;
+    }
 }
