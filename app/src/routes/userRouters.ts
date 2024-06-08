@@ -25,7 +25,7 @@ export const routesUser = [
         method: 'DELETE',
         url: '/',
         handler: deleteUser,
-        onRequest: [verifyJwt]
+        // onRequest: [verifyJwt]
     },
     {
         method: 'PATCH',

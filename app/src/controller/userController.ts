@@ -36,6 +36,7 @@ export let getUser = async(request, response)=> {
 }
 
 export let deleteUser = async(request, response)=> {
+    
     try {
         const userModel = new User()
         await userModel.deleteUser(request)

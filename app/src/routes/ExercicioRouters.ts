@@ -1,4 +1,5 @@
-import { addExercicio, addExercicioInTreino, deleteExercicio, deleteExercicioTreino, updateExercicioTreino } from "../controller/ExercicioController"
+import { addExercicio, addExercicioInTreino, deleteExercicio, deleteExercicioTreino, getAllExercicios, getExercicioTreino, getOneExercicioTreino, updateExercicioTreino } from "../controller/ExercicioController"
+import { getExercicioTreinoEschema, getTreinoSchema } from "../schemas/TreinoSchema"
 
 export const exercicioPrefix = '/exercicio'
 
@@ -27,5 +28,22 @@ export const exercicioRoutes = [
         method: 'DELETE',
         url: '/',
         handler: deleteExercicio,
+    },
+    {
+        method: 'GET',
+        url: '/',
+        handler: getAllExercicios ,
+    },
+    {
+        method: 'GET',
+        url: '/treino',
+        handler: getExercicioTreino,
+        eschema: getTreinoSchema
+    },
+    {
+        method: 'GET',
+        url: '/oneExercicio',
+        handler: getOneExercicioTreino,
+        eschema: getTreinoSchema
     },
 ]

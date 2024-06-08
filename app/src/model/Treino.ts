@@ -43,58 +43,83 @@ export class Treino {
         return treino
     }
    
-async deletetreino(request){
-    const getTreinoId = z.object({id: z.string()})
-    console.log(request.query.id);
+    async deletetreino(request){
+        const getTreinoId = z.object({id: z.string()})
+        console.log(request.query.id);
 
-    const { id } = getTreinoId.parse(request.query)
+        const { id } = getTreinoId.parse(request.query)
 
-    const treino = await prisma.treino.findUnique({
-        where: {
-            id: id
-        }
-    })
-    
-    if (!treino)
-        throw ({
-            "statusCode": 500,
-            "error": "Internal Server Error",
-            "message": "treino não encontrado"
-        });
-        
-        await prisma.treino.delete({
+        const treino = await prisma.treino.findUnique({
             where: {
                 id: id
             }
         })
-        return true;
-}
+        
+        if (!treino)
+            throw ({
+                "statusCode": 500,
+                "error": "Internal Server Error",
+                "message": "treino não encontrado"
+            });
+            
+            await prisma.treino.delete({
+                where: {
+                    id: id
+                }
+            })
+            return true;
+    }
 
-async updateTreino(request){
+    async updateTreino(request){
 
-        const getTreinoID = z.object({id: z.string()})
-        const { id } = getTreinoID.parse(request.query)
-        const treinoParams = request.body;
-        const user = await prisma.treino.findUnique({
+            const getTreinoID = z.object({id: z.string()})
+            const { id } = getTreinoID.parse(request.query)
+            const treinoParams = request.body;
+            const user = await prisma.treino.findUnique({
+                where: {
+                    id: id
+                }
+            }) 
+            
+            if (!user)
+                throw ({
+                    "statusCode": 500,
+                    "error": "Internal Server Error",
+                    "message": "Treino não encontrado"
+                });
+
+
+            const userUpdated = await prisma.treino.update({
+                where: {
+                    id:id
+                },
+                data:treinoParams
+            })
+            return userUpdated
+        }
+    async getTreino(id: string){
+        let treino = await prisma.treino.findUnique({
             where: {
                 id: id
             }
-        }) 
-        
-        if (!user)
+        })
+
+        if (treino == null){
             throw ({
                 "statusCode": 500,
                 "error": "Internal Server Error",
                 "message": "Treino não encontrado"
-            });
-
-
-        const userUpdated = await prisma.treino.update({
+            }); 
+        }
+        
+            return treino
+        }
+    async getAllTreinos(userId: string){
+        const treinos = await prisma.treino.findMany({
             where: {
-                id:id
-            },
-            data:treinoParams
+                userId: userId
+            }
         })
-        return userUpdated
+        return treinos
     }
 }

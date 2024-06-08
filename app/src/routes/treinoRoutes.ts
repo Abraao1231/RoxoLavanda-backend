@@ -1,4 +1,5 @@
-import { AddTreino, deletetreino, updateTreino } from "../controller/treinoController"
+import { AddTreino, deletetreino, getAlltreinos, getTreino, updateTreino } from "../controller/treinoController"
+import { getTreinoSchema } from "../schemas/TreinoSchema"
 
 export const TreinoPrefix = '/treino'
 
@@ -17,5 +18,17 @@ export const TreinoRoutes = [
         method: 'PATCH',
         url: '/',
         handler: updateTreino,
+    },
+    {
+        method: 'GET',
+        url : '/',
+        handler: getTreino,
+        schema: getTreinoSchema
+    },
+    {
+        method: 'GET',
+        url : '/all',
+        handler: getAlltreinos,
     }
+
 ]

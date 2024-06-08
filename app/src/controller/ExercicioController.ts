@@ -49,8 +49,6 @@ export let updateExercicioTreino = async(request, response)=>{
         response.send({message: error})        
     } 
 }
-
-
 export let deleteExercicio = async (request, response)=>{
     try {
         await model.deleteExercicio(request)
@@ -62,4 +60,19 @@ export let deleteExercicio = async (request, response)=>{
         response.status(error.statusCode)
         response.send({message: error})   
     }
+}
+export let getAllExercicios = async (request, response)=> {
+    response.send({
+        data: await model.findAllExercicios(request)
+    })
+}
+export let getExercicioTreino = async(request, response) => {
+    
+    const data = await model.getAllPossuiExercicio(request)
+    response.send(data)
+}
+
+export let getOneExercicioTreino = async(request, response) => {
+    const exercicio = await model.getOneExercicioTreino(request.query.id)
+    response.send({data: exercicio})
 }

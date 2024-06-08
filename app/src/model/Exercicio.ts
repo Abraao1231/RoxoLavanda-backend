@@ -126,4 +126,42 @@ export class Exercicio {
             })
             return true;
     }
+    async findAllExercicios(request){
+        let data;
+        if (request.query.id == undefined)
+            data = await prisma.exercicio.findMany()
+        else 
+            data = await prisma.exercicio.findUnique({
+                where: {
+                    id: request.query.id
+                }
+            })
+            return data
+    }
+    async getAllPossuiExercicio(request){
+        
+        const possuiTreino = await prisma.treinoPossuiExercicio.findMany({
+            where: {
+                treinoId: request.query.id
+            },
+            include: {
+                exercicio: true,
+                treino: true
+            }
+        })
+        return possuiTreino
+    }
+    async getOneExercicioTreino(id: string){
+        const data = await prisma.treinoPossuiExercicio.findUnique({
+            where: {
+                id: id
+            },
+            include: {
+                exercicio: true,
+                treino: true
+            }
+
+        })
+        return data
+    }   
 }

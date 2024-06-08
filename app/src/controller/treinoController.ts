@@ -44,3 +44,29 @@ export let updateTreino = async(request, response)=> {
         response.send({message: error})        
     } 
 } 
+export let getTreino  = async(request, response) => {
+    try {
+        const treino = await model.getTreino(request.query.id)
+        return {
+            data: {
+                treino: treino
+            }
+        }
+    } catch (error) {
+        response.status(500)
+        response.send(error)
+    }
+}
+export let getAlltreinos = async(request, response) => {
+    try {
+        const treinos = await model.getAllTreinos(request.query.id)
+        return {
+            data: {
+                treinos: treinos
+            }
+        }
+    } catch (error) {
+        response.status(500)
+        response.send(error)
+    }
+}
