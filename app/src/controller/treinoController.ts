@@ -61,9 +61,7 @@ export let getAlltreinos = async(request, response) => {
     try {
         const treinos = await model.getAllTreinos(request.query.id)
         return {
-            data: {
-                treinos: treinos
-            }
+            treinos: treinos
         }
     } catch (error) {
         response.status(500)

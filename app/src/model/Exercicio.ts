@@ -62,7 +62,7 @@ export class Exercicio {
             throw ({
                 "statusCode": 500,
                 "error": "Internal Server Error",
-                "message": "Usuario não encontrado"
+                "message": "Treino não encontrado"
             });
 
         await prisma.treinoPossuiExercicio.delete({
@@ -146,7 +146,7 @@ export class Exercicio {
             },
             include: {
                 exercicio: true,
-                treino: true
+                // treino: true
             }
         })
         return possuiTreino
