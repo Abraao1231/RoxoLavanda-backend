@@ -87,9 +87,10 @@ export class User {
     }
     
     async deleteUser(request){
+        
         const getUserId = z.object({id: z.string()})
         const { id } = getUserId.parse(request.query)
-        
+
         const user = await prisma.user.findUnique({
             where: {
                 id: id
@@ -102,14 +103,13 @@ export class User {
                 "error": "Internal Server Error",
                 "message": "Usuario não encontrado"
             });
-
-        await prisma.user.delete({
-            where: {
-                id: id
-            }
-        })
-
-        return true;
+            
+            await prisma.user.delete({
+                where: {
+                    id: id
+                }
+            })
+            return true;
     }
     async updateUser(request){
         const getUserId = z.object({id: z.string()})

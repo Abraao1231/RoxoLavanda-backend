@@ -1,6 +1,7 @@
 import {getUser, AddUser, Hello, deleteUser, updateUser} from '../controller/userController'
-import { updateUserSchema } from '../schemas/userSchemas'
+import { createUserSchema, findUserByEmailSchema, updateUserSchema } from '../schemas/userSchemas'
 import { verifyJwt } from '../middleware/authJwt'
+import { getTreinoSchema } from '../schemas/TreinoSchema'
 export const prefixUser = '/user'
 
 export const routesUser = [
@@ -12,26 +13,30 @@ export const routesUser = [
     {
         method: 'POST',
         url: '/',
-        handler: AddUser
+        handler: AddUser,
+        schema: createUserSchema
 
     },
     {
         method: 'GET',
         url: '/',
         handler: getUser,
-        onRequest: [verifyJwt]
+        onRequest: [verifyJwt],
+        schema: findUserByEmailSchema
     },
     {
         method: 'DELETE',
         url: '/',
         handler: deleteUser,
-        onRequest: [verifyJwt]
+        onRequest: [verifyJwt],
+        schema: getTreinoSchema
+
     },
     {
         method: 'PATCH',
         url: '/',
         handler: updateUser,
         schema: updateUserSchema,
-        onRequest: [verifyJwt]
+        onRequest: [verifyJwt],
     },
 ]

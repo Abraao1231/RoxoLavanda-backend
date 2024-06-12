@@ -36,6 +36,7 @@ export let getUser = async(request, response)=> {
 }
 
 export let deleteUser = async(request, response)=> {
+    
     try {
         const userModel = new User()
         await userModel.deleteUser(request)
@@ -43,6 +44,8 @@ export let deleteUser = async(request, response)=> {
             message: "Conta excluida !"
         })
     } catch (error) {
+        console.log(error);
+        
         response.status(error.statusCode)
         response.send({message: error})   
     }
