@@ -40,6 +40,7 @@ async function run(){
                                     intervalo: 30,
                                     numeroRep: 15,
                                     numeroSer: 3,
+                                    carga: 40,
                                     exercicio: {
                                         connect: {
                                             id: exercicios[1].id
@@ -50,6 +51,7 @@ async function run(){
                                     intervalo: 30,
                                     numeroRep: 15,
                                     numeroSer: 3,
+                                    carga: 20,
                                     exercicio: {
                                         connect: {
                                             id: exercicios[2].id
@@ -68,6 +70,7 @@ async function run(){
                                     intervalo: 30,
                                     numeroRep: 15,
                                     numeroSer: 3,
+                                    carga: 40,
                                     exercicio: {
                                         connect: {
                                             id: exercicios[2].id
@@ -78,6 +81,7 @@ async function run(){
                                     intervalo: 30,
                                     numeroRep: 15,
                                     numeroSer: 3,
+                                    carga: 40,
                                     exercicio: {
                                         connect: {
                                             id: exercicios[3].id
