@@ -9,30 +9,30 @@ datasource db {
 
 model User {
   id                    String                  @id @default(uuid())
-  userName              String                  
+  userName              String
   email                 String
   password              String
   created_at            DateTime
-  genero                String  
+  genero                String
   altura                Float
   peso                  Float
   RegistroTreinoRealiza RegistroTreinoRealiza[]
-  Treinos Treino[] 
+  Treinos               Treino[]
 
   @@unique([id])
   @@unique([email])
   @@map("user")
 }
 
-
 model Treino {
   id                    String                  @id @default(uuid())
   intervalo             Int
   nome                  String
-  userId   String
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                String
+  user                  User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
   RegistroTreinoRealiza RegistroTreinoRealiza[]
   TreinoPossuiExercicio TreinoPossuiExercicio[]
+
   @@map("treino")
 }
 
@@ -42,26 +42,33 @@ model RegistroTreinoRealiza {
   tempo    Int
   data     DateTime
   userId   String
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   treinoId String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   treino   Treino   @relation(fields: [treinoId], references: [id], onDelete: Cascade)
 
   @@map("registra_treino_realiza")
 }
 
+model RegistroExercicio {
+  id       String   @id @default(uuid())
+  qtdSerie Int
+  data     DateTime
+}
+
 model Exercicio {
   id                    String                  @id @default(uuid())
-  nome                  String                 
+  nome                  String
   TreinoPossuiExercicio TreinoPossuiExercicio[]
 
   @@map("exercicio")
 }
 
 model TreinoPossuiExercicio {
-  id       String   @id @default(uuid())
-  numeroRep             Int
-  intervalo             Int
-  numeroSer             Int
+  id          String    @id @default(uuid())
+  numeroRep   Int
+  intervalo   Int
+  numeroSer   Int
+  carga       Int
   treinoId    String
   treino      Treino    @relation(fields: [treinoId], references: [id], onDelete: Cascade)
   exercicioId String

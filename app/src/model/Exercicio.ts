@@ -25,15 +25,17 @@ export class Exercicio {
             numeroRep: z.number().min(1),
             intervalo: z.number().min(10),
             numeroSer: z.number().min(1),
+            carga: z.number().min(0)
         }) 
         
-        const {treinoId, exercicioId, numeroRep, intervalo, numeroSer} = zodBodyTreinoPossuiExercicio.parse(request.body)
+        const {treinoId, exercicioId, numeroRep, intervalo, numeroSer, carga} = zodBodyTreinoPossuiExercicio.parse(request.body)
         
         const exercicioTreino = await prisma.treinoPossuiExercicio.create({
             data: {
                 intervalo: intervalo,
                 numeroRep: numeroRep,
                 numeroSer: numeroSer,
+                carga: carga,
                 exercicio: {
                     connect: {
                         id: exercicioId
