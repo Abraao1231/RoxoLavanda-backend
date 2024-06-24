@@ -37,22 +37,26 @@ model Treino {
 }
 
 model RegistroTreinoRealiza {
-  id       String   @id @default(uuid())
-  calorias Float
-  tempo    Int
-  data     DateTime
-  userId   String
-  treinoId String
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  treino   Treino   @relation(fields: [treinoId], references: [id], onDelete: Cascade)
+  id                   String              @id @default(uuid())
+  tempo                Int
+  data                 DateTime
+  userId               String
+  treinoId             String
+  user                 User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  treino               Treino              @relation(fields: [treinoId], references: [id], onDelete: Cascade)
+  exerciciosRealizados RegistroExercicio[]
 
   @@map("registra_treino_realiza")
 }
 
 model RegistroExercicio {
-  id       String   @id @default(uuid())
-  qtdSerie Int
-  data     DateTime
+  id                      String                 @id @default(uuid())
+  SeriesRealizadas        Int
+  RegistroTreinoRealiza   RegistroTreinoRealiza? @relation(fields: [registroTreinoRealizaId], references: [id])
+  treinoPossuiExercicioId String
+  TreinoPossuiExercicio   TreinoPossuiExercicio? @relation(fields: [treinoPossuiExercicioId], references: [id])
+
+  registroTreinoRealizaId String
 }
 
 model Exercicio {
@@ -64,15 +68,16 @@ model Exercicio {
 }
 
 model TreinoPossuiExercicio {
-  id          String    @id @default(uuid())
-  numeroRep   Int
-  intervalo   Int
-  numeroSer   Int
-  carga       Int
-  treinoId    String
-  treino      Treino    @relation(fields: [treinoId], references: [id], onDelete: Cascade)
-  exercicioId String
-  exercicio   Exercicio @relation(fields: [exercicioId], references: [id], onDelete: Cascade)
+  id                String              @id @default(uuid())
+  numeroRep         Int
+  intervalo         Int
+  numeroSer         Int
+  carga             Int
+  treinoId          String
+  treino            Treino              @relation(fields: [treinoId], references: [id], onDelete: Cascade)
+  exercicioId       String
+  exercicio         Exercicio           @relation(fields: [exercicioId], references: [id], onDelete: Cascade)
+  RegistroExercicio RegistroExercicio[]
 
   @@map("treino_possui_exercicio")
 }

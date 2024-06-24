@@ -46,6 +46,10 @@ app.decorate("authenticate", async function(request, reply) {
     }
   })
 
+app.get(`/`, async function (request, reply) {
+    reply.redirect("docs")
+})
+
 app.register(appRoutes)
 app.listen({
     host: "0.0.0.0",

@@ -2,14 +2,18 @@ import { PrismaClient } from "@prisma/client"
 import exercicio from './exercicios.json'
 import dayjs from "dayjs";
 import bcrypt from "bcrypt"
+
+
 const prisma = new PrismaClient()
+
+
 async function run(){
     await prisma.user.deleteMany()
     await prisma.treino.deleteMany()
     await prisma.exercicio.deleteMany()
     await prisma.treinoPossuiExercicio.deleteMany()
     await prisma.registroTreinoRealiza.deleteMany()
-    const today = dayjs().startOf('day').toDate();
+    const today = dayjs().startOf('day').toDate()
     
     exercicio.forEach( async (item) => {
     await prisma.exercicio.create({
