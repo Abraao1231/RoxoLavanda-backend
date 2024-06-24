@@ -23,7 +23,7 @@ export class Exercicio {
             treinoId: z.string(),
             exercicioId: z.string(),
             numeroRep: z.number().min(1),
-            intervalo: z.number().min(10),
+            intervalo: z.number().min(0),
             numeroSer: z.number().min(1),
             carga: z.number().min(0)
         }) 
