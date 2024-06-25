@@ -3,7 +3,7 @@ import { prefixUser, routesUser } from "./userRouters";
 import { AuthPrefix, AuthRoutes } from "./authRoutes";
 import { TreinoRoutes, TreinoPrefix } from "./treinoRoutes";
 import { exercicioRoutes, exercicioPrefix } from "./ExercicioRouters";
-
+import { prefixRegistro, routesRegistro } from "./RegistrosRouters";
 const mainRoute = 
     {
         method: 'GET',
@@ -19,6 +19,7 @@ export async function appRoutes(app: FastifyInstance){
     register(app, routesUser, prefixUser)
     register(app, TreinoRoutes, TreinoPrefix)
     register(app, exercicioRoutes, exercicioPrefix)
+    register(app, routesRegistro, prefixRegistro)
 
 }
 function register(app: FastifyInstance, routes, prefix: string){

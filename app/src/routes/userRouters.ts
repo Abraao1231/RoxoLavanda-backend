@@ -2,6 +2,7 @@ import {getUser, AddUser, Hello, deleteUser, updateUser} from '../controller/use
 import { createUserSchema, findUserByEmailSchema, updateUserSchema } from '../schemas/userSchemas'
 import { verifyJwt } from '../middleware/authJwt'
 import { getTreinoSchema } from '../schemas/TreinoSchema'
+import { addAbortSignal } from 'stream'
 
 export const prefixUser = '/user'
 export const routesUser = [
@@ -30,7 +31,7 @@ export const routesUser = [
         handler: deleteUser,
         onRequest: [verifyJwt],
         schema: getTreinoSchema
-
+        
     },
     {
         method: 'PATCH',
