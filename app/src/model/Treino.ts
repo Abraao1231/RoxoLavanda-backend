@@ -13,7 +13,8 @@ export class Treino {
                 numeroRep: z.number().min(1),
                 intervalo: z.number().min(0),
                 numeroSer: z.number().min(1),
-                exericioId: z.string()
+                exericioId: z.string(),
+                carga: z.number()
             }).array().min(1, {message: "O treino deve conter no minimo 1 exercicio"})
         }) 
         
@@ -36,7 +37,8 @@ export class Treino {
                     numeroRep: exercicio.numeroRep,
                     numeroSer: exercicio.numeroSer,
                     exercicioId: exercicio.exericioId,
-                    treinoId: treino.id
+                    treinoId: treino.id,
+                    carga: exercicio.carga
                 }
             })
         })
