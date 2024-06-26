@@ -3,8 +3,10 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = "postgresql://public_oi0r_user:B9xyeAV8VIj8sAl8QpFq3VxrmvV7From@dpg-cptvpu9u0jms73egk140-a/public_oi0r"
+  // provider = "sqlite"
+  // url      = env("DATABASE_URL")
 }
 
 model User {
@@ -29,6 +31,7 @@ model Treino {
   intervalo             Int
   nome                  String
   userId                String
+  diasDaSemana          String
   user                  User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
   RegistroTreinoRealiza RegistroTreinoRealiza[]
   TreinoPossuiExercicio TreinoPossuiExercicio[]

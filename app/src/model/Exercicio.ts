@@ -117,7 +117,7 @@ export class Exercicio {
         if (!treino)
             throw ({
                 "statusCode": 500,
-                "error": "Internal Server Error",
+                "error": "Internal Server Erro",
                 "message": "treino não encontrado"
             });
             

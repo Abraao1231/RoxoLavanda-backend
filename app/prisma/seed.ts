@@ -38,6 +38,7 @@ async function run(){
                     {
                         intervalo: 40,
                         nome: "Treino de Peito",
+                        diasDaSemana: "2",
                         TreinoPossuiExercicio: {
                             create: [
                                 {
@@ -68,6 +69,7 @@ async function run(){
                     {
                         intervalo: 60,
                         nome: "Treino de Costas",
+                        diasDaSemana: "3",
                         TreinoPossuiExercicio: {
                             create: [
                                 {

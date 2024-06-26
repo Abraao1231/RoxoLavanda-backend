@@ -9,6 +9,7 @@ export class Treino {
             userId: z.string(),
             nome: z.string().min(5,{message: "Nome do treino deve ter no minimo 5 caracteres"}), 
             intervalo: z.number().min(0, {message: "O tempo de treino deve ser um número positivo"}),
+            diasDaSemana: z.string(),
             exercicios: z.object({
                 numeroRep: z.number().min(1),
                 intervalo: z.number().min(0),
@@ -18,10 +19,11 @@ export class Treino {
             }).array().min(1, {message: "O treino deve conter no minimo 1 exercicio"})
         }) 
         
-        const {userId, nome, intervalo, exercicios} = zodBodyTreino.parse(request.body)
+        const {userId, nome, intervalo, exercicios, diasDaSemana} = zodBodyTreino.parse(request.body)
         const treino = await prisma.treino.create({
             data: {
                 nome: nome,
+                diasDaSemana: diasDaSemana,
                 intervalo:  intervalo,
                 user: {
                     connect: {
