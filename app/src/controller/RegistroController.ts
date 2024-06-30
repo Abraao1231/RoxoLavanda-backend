@@ -2,7 +2,12 @@ import { Registro } from "../model/Registro"
 const modal = new Registro()
 export let getRegistroTreino = async function (request, reply){
     try {
-        
+        const registro = model.getRegistroTreino(request.query.id)
+        return {
+            data: {
+                registro: registro
+            }
+        }
     } catch (error) {
         reply.status(500)
         reply.send(error.message)
