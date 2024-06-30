@@ -28,7 +28,10 @@ const swaggerUiOptions = {
     routePrefix: "/docs",
     exposeRoute: true,
 };
-app.register(cors, {})
+app.register(cors, {
+    origin: '*', // Permite todas as origens, mas você pode especificar uma lista de origens permitidas
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  })
 app.register(fastifyJwt, {
     secret: String(process.env.SECRET_JWT)
 })
