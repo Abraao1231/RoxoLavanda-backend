@@ -1,4 +1,4 @@
-import {getUser, AddUser, Hello, deleteUser, updateUser} from '../controller/userController'
+import {getUser, AddUser, Hello, deleteUser, updateUser, getUserData} from '../controller/userController'
 import { createUserSchema, findUserByEmailSchema, updateUserSchema } from '../schemas/userSchemas'
 import { verifyJwt } from '../middleware/authJwt'
 import { getTreinoSchema } from '../schemas/TreinoSchema'
@@ -24,6 +24,12 @@ export const routesUser = [
         handler: getUser,
         onRequest: [verifyJwt],
         schema: findUserByEmailSchema
+    },
+    {
+        method: 'GET',
+        url: '/data',
+        handler: getUserData,
+        // onRequest: [verifyJwt],
     },
     {
         method: 'DELETE',

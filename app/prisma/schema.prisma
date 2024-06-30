@@ -3,10 +3,10 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = "postgresql://public_oi0r_user:B9xyeAV8VIj8sAl8QpFq3VxrmvV7From@dpg-cptvpu9u0jms73egk140-a/public_oi0r"
-  // provider = "sqlite"
-  // url      = env("DATABASE_URL")
+  // provider = "postgresql"
+  // url      = "postgresql://public_oi0r_user:B9xyeAV8VIj8sAl8QpFq3VxrmvV7From@dpg-cptvpu9u0jms73egk140-a/public_oi0r"
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -18,6 +18,7 @@ model User {
   genero                String
   altura                Float
   peso                  Float
+  nivel                 String
   RegistroTreinoRealiza RegistroTreinoRealiza[]
   Treinos               Treino[]
 
@@ -55,9 +56,9 @@ model RegistroTreinoRealiza {
 model RegistroExercicio {
   id                      String                 @id @default(uuid())
   SeriesRealizadas        Int
-  RegistroTreinoRealiza   RegistroTreinoRealiza? @relation(fields: [registroTreinoRealizaId], references: [id])
+  RegistroTreinoRealiza   RegistroTreinoRealiza? @relation(fields: [registroTreinoRealizaId], references: [id], onDelete: Cascade)
   treinoPossuiExercicioId String
-  TreinoPossuiExercicio   TreinoPossuiExercicio? @relation(fields: [treinoPossuiExercicioId], references: [id])
+  TreinoPossuiExercicio   TreinoPossuiExercicio? @relation(fields: [treinoPossuiExercicioId], references: [id], onDelete: Cascade)
 
   registroTreinoRealizaId String
 }

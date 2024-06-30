@@ -6,6 +6,7 @@ import dayjs from 'dayjs'
 export class Registro {
     constructor(){}
     async createRegistroTreino(request: Request){
+       
         const today = dayjs().startOf('day').toDate();
 
         const zodBodyRegistro = z.object({
@@ -31,6 +32,36 @@ export class Registro {
                 data: today
             }
         })
+        
         return registro
+    
+       
+    }
+    async createRegistroExercicio(request : Request){
+        const validator = z.object({
+            seriesRealizadas: z.number(),
+            treinoPossuiExercicioId: z.string(),
+            registroTreinoRealiza: z.string()
+        })
+        
+        const {seriesRealizadas, treinoPossuiExercicioId, registroTreinoRealiza} = validator.parse(request.body)
+
+        const data = await prisma.registroExercicio.create({
+            data: {
+                SeriesRealizadas: seriesRealizadas,
+                RegistroTreinoRealiza: {
+                    connect: {
+                        id: registroTreinoRealiza
+                    }
+                },
+                TreinoPossuiExercicio: {
+                    connect: {
+                        id: treinoPossuiExercicioId
+                    }
+                }
+            }
+        })
+        
+        return data
     }
 }

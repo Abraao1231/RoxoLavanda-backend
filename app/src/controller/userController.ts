@@ -51,6 +51,24 @@ export let deleteUser = async(request, response)=> {
     }
 }
 
+export let getUserData = async(request, response)=> {
+    
+    try {
+        const userModel = new User()
+        const nextWorkout = await userModel.getNextWorkout(request.query.id)
+        const last10Days = await userModel.getlast10Days(request.query.id)
+        response.send({
+           nextWorkout: nextWorkout,
+           las10Days: last10Days
+        })
+    } catch (error) {
+        console.log(error);
+        
+        response.status(error.statusCode)
+        response.send({message: error})   
+    }
+}
+
 export let updateUser = async(request, response)=>{
     try {
         const userModel = new User()
