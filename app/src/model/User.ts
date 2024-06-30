@@ -2,7 +2,6 @@ import {prisma} from '../lib/prisma'
 import dayjs from 'dayjs'
 import {z} from 'zod'
 import bcrypt from 'bcrypt';
-import { log } from 'console';
 
 export class User {
     constructor() {}
