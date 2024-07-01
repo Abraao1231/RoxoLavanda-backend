@@ -58,7 +58,7 @@ export class User {
                     data: {
                         intervalo: 60,
                         userId: user.id,
-                        nome: "Treino de Pernas",
+                        nome: "Treino de Superiores",
                         diasDaSemana: "36",
                         TreinoPossuiExercicio: {
                             create: [

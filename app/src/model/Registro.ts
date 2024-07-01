@@ -66,31 +66,6 @@ export class Registro {
     }
 
 
-    async createRegistroExercicio(request: Request){
-        const zodBodyRegistro = z.object({
-            SeriesRealizadas: z.number(),
-            treinoPossuiExercicioId: z.string(),
-            registroTreinoRealizaId: z.string()
-        })
-
-        const {SeriesRealizadas, treinoPossuiExercicioId, registroTreinoRealizaId} = zodBodyRegistro.parse(request.body)
-        const registro = await prisma.registroExercicio.create({
-            data: {
-                SeriesRealizadas: SeriesRealizadas,
-                TreinoPossuiExercicio: {
-                    connect: {
-                        id: treinoPossuiExercicioId
-                    }
-                },
-                RegistroTreinoRealiza: {
-                    connect: {
-                        id: registroTreinoRealizaId
-                    }
-                }
-            }
-        })
-        return registro
-    }
 
     async getRegistroTreino(id: string){
         let registro = await prisma.registroTreinoRealiza.findUnique({
